@@ -35,6 +35,8 @@ public class Parser {
                 return new CmdPwd();
             case "wc":
                 return new CmdWc();
+            case "grep":
+                return new CmdGrep();
             default:
                 return new ExternalCommand(cmd);
         }
