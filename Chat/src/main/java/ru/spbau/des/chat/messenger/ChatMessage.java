@@ -3,6 +3,7 @@ package ru.spbau.des.chat.messenger;
 import ru.spbau.des.chat.transport.TransportMessage;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 public class ChatMessage {
 private final String text;
@@ -57,7 +58,7 @@ private final String text;
         }
 
         public Builder setTime(LocalDateTime time) {
-            this.time = time;
+            this.time = time.truncatedTo(ChronoUnit.SECONDS);
             return this;
         }
 
@@ -71,5 +72,11 @@ private final String text;
         public ChatMessage build() {
             return new ChatMessage(text, author, time);
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof ChatMessage && ((ChatMessage) o).author.equals(author) &&
+                ((ChatMessage) o).text.equals(text) && ((ChatMessage) o).time.equals(time);
     }
 }

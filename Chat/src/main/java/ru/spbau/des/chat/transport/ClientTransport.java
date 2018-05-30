@@ -8,6 +8,7 @@ import java.io.IOException;
 
 public class ClientTransport extends BaseTransport {
 
+    public static final String MSG_NO_CONNECTION = "Client: no connection";
     private ChatGrpc.ChatStub stub;
     private StreamObserver<Protocol.Message> outputObserver;
 
@@ -25,13 +26,13 @@ public class ClientTransport extends BaseTransport {
             start();
         }
         if (outputObserver == null) {
-            throw new TransportException("Client: no connection");
+            throw new TransportException(MSG_NO_CONNECTION);
         }
         Protocol.Message protocolMessage = message.toProtocolMessage();
         outputObserver.onNext(protocolMessage);
     }
 
-    public void start() {
+    protected void start() {
         outputObserver = stub.exchangeMessages(new StreamObserver<Protocol.Message>() {
             private final static int CONNECTION_ATTEMPTS = 3;
             private int connectionErrors = 0;

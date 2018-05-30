@@ -32,6 +32,7 @@ dependencies {
     compile "io.grpc:grpc-stub:${grpcVersion}"
     compile "io.netty:netty-tcnative-boringssl-static:${nettyTcNativeVersion}"
     testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-core:2.+'
 }
 
 protobuf {

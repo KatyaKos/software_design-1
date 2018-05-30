@@ -2,14 +2,15 @@ package ru.spbau.des.chat.transport;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
 
 public class TransportMessage {
     private final String text;
     private final String author;
     private final LocalDateTime time;
 
-    private TransportMessage(String text, String author, LocalDateTime time,
-                             boolean service) {
+    private TransportMessage(String text, String author, LocalDateTime time) {
         this.text = text;
         this.author = author;
         this.time = time;
@@ -43,7 +44,6 @@ public class TransportMessage {
         private String text;
         private String author;
         private LocalDateTime time;
-        private boolean service;
 
         private Builder() {}
 
@@ -58,7 +58,7 @@ public class TransportMessage {
         }
 
         public Builder setTime(LocalDateTime time) {
-            this.time = time;
+            this.time = time.truncatedTo(ChronoUnit.SECONDS);
             return this;
         }
 
@@ -71,7 +71,15 @@ public class TransportMessage {
         }
 
         public TransportMessage build() {
-            return new TransportMessage(text, author, time, service);
+            return new TransportMessage(text, author, time);
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof TransportMessage &&
+                ((TransportMessage) o).author.equals(author) &&
+                ((TransportMessage) o).text.equals(text) &&
+                ((TransportMessage) o).time.equals(time);
     }
 }
