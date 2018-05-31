@@ -37,6 +37,10 @@ public class Parser {
                 return new CmdWc();
             case "grep":
                 return new CmdGrep();
+            case "ls":
+                return new CmdLs(environment);
+            case "cd":
+                return new CmdCd(environment);
             default:
                 return new ExternalCommand(cmd);
         }
