@@ -2,7 +2,6 @@ package ru.spbau.sd.cli.interpreter.commands;
 
 import ru.spbau.sd.cli.interpreter.Environment;
 import ru.spbau.sd.cli.interpreter.ExecutionResult;
-import ru.spbau.sd.cli.interpreter.SimpleEnvironment;
 import ru.spbau.sd.cli.interpreter.io.InputStream;
 import ru.spbau.sd.cli.interpreter.io.OutputStream;
 
@@ -10,6 +9,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Комманда, перемещающаяся по папкам. Если не указано аргументов - пойдет в домашнюю директорию.
+ */
 public class CmdCd implements Command {
     private final Environment environment;
 
@@ -26,7 +28,7 @@ public class CmdCd implements Command {
             return ExecutionResult.OK;
         }
         if (arguments.size() != 1) {
-            outputStream.write("Error during \'cd\' command occurred. Please, provide some arguments.");
+            outputStream.write("Error during \'cd\' command occurred. Please, provide none or one argument.");
             return ExecutionResult.Error;
         }
         String name = arguments.get(0);

@@ -10,6 +10,9 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * Команда, распечатывающая директорию. Если не указано имя директории - распечатает текущую.
+ */
 public class CmdLs implements Command {
     private final Environment environment;
 
@@ -22,8 +25,10 @@ public class CmdLs implements Command {
         File dir;
         String name = "";
         if (arguments.size() <= 1) {
-            dir = arguments.isEmpty() ? new File(environment.get("PWD")) : new File(arguments.get(0));
-            name = arguments.isEmpty() ? environment.get("PWD") : arguments.get(0);
+            dir = arguments.isEmpty() ? new File(environment.get("PWD")) :
+                    new File(environment.get("PWD") + File.separator + arguments.get(0));
+            name = arguments.isEmpty() ? environment.get("PWD") :
+                    environment.get("PWD") + File.separator + arguments.get(0);
         } else {
             outputStream.write("Error during \'ls\' command occurred. Please, provide one or zero arguments.");
             return ExecutionResult.Error;

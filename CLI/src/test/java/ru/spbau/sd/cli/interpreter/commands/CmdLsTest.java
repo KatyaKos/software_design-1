@@ -5,7 +5,6 @@ import ru.spbau.sd.cli.interpreter.Environment;
 import ru.spbau.sd.cli.interpreter.SimpleEnvironment;
 import ru.spbau.sd.cli.interpreter.io.SimpleStream;
 
-import java.io.File;
 import java.util.Collections;
 
 import static org.junit.Assert.assertEquals;
